@@ -5,32 +5,59 @@ import { graphql } from "gatsby";
 
 const toolLibrary = [53.3939431, -2.9486509, 15];
 
-const users = [
-  {
-    position: [53.3913328, -2.9575773, 15],
-    radius: 50,
-    opacity: 0.5,
-    color: "#33ff69",
-    info: "Hello. Is it me you're looking for?",
-  },
-  {
-    position: [53.395836, -2.949445, 17],
-    radius: 100,
-    opacity: 0.5,
-    color: "#ff3392",
-    info: "Coffee Lodge",
-  },
-  {
-    position: [53.3952227, -2.959766, 15],
-    radius: 135,
-    opacity: 0.5,
-    color: "#3388ff",
-    info: "Red Sea",
-  },
-];
+const palette = {
+  rose: "f72585",
+  fandango: "b5179e",
+  grape: "7209b7",
+  chryslerBlue: "560bad",
+  darkBlue: "480ca8",
+  zaffre: "3a0ca3",
+  palatinateBlue: "3f37c9",
+  neonBlue: "4361ee",
+  chefchaouenBlue: "4895ef",
+  vividSkyBlue: "4cc9f0",
+};
+
+const getColor = (magicNumber) => {
+  if (magicNumber === 1) {
+    return "#" + palette.rose;
+  } else if (magicNumber < 10) {
+    return "#" + palette.fandango;
+  } else if (magicNumber < 50) {
+    return "#" + palette.grape;
+  } else if (magicNumber < 100) {
+    return "#" + palette.chryslerBlue;
+  } else if (magicNumber < 150) {
+    return "#" + palette.darkBlue;
+  } else if (magicNumber < 200) {
+    return "#" + palette.zaffre;
+  } else if (magicNumber < 250) {
+    return "#" + palette.palatinateBlue;
+  } else if (magicNumber < 300) {
+    return "#" + palette.neonBlue;
+  } else {
+    return "#" + palette.vividSkyBlue;
+  }
+};
+
+const prepareCircle = (roughItem) => {
+  return {
+    position: [roughItem.node.latitude, roughItem.node.longitude],
+    postcode: roughItem.node.postcode,
+    color: getColor(roughItem.node.Count_sum),
+    sum: roughItem.node.Count_sum,
+    result:
+      "Postcode: " +
+      roughItem.node.postcode +
+      " - Loans: " +
+      roughItem.node.Count_sum,
+  };
+};
 
 const MapPage = ({ data }) => {
-  const circles = data.allPostcodesCsv.edges;
+  const circles = data.allPostcodesCsv.edges.map((item) => {
+    return prepareCircle(item);
+  });
 
   return (
     <MapContainer
@@ -51,13 +78,13 @@ const MapPage = ({ data }) => {
       </Marker>
       {circles.map((circle) => (
         <Circle
-          key={circle.node.postcode}
-          center={[circle.node.latitude, circle.node.longitude]}
+          key={circle.postcode}
+          center={circle.position}
           radius="50"
           opacity="0.7"
-          color="#3388ff"
+          color={circle.color}
         >
-          <Popup>{circle.node.Count_sum}</Popup>
+          <Popup>{circle.result}</Popup>
         </Circle>
       ))}
     </MapContainer>
