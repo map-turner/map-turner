@@ -1,5 +1,5 @@
 <h1 align="center">
-  Myturn Usage Mapper
+  Tool Usage Mapper
 </h1>
 
 ## What is this?
@@ -19,8 +19,6 @@ It was a good excuse to try working with Gatsby and Leaflet.
     ```
 
 2.  **Get the dependencies.**
-
-    Navigate into your new site’s directory and start it up.
 
     ```shell
     npm i
