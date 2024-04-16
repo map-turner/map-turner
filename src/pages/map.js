@@ -26,24 +26,24 @@ const palette = [
 const getColor = (magicNumber) => {
   // TODO: find min/max values and use max here???
   const percentage = (magicNumber / 200) * 100;
-
-  if (percentage < 10) {
+  // TODO: improve split of numbers
+  if (percentage < 3) {
     return palette[0];
-  } else if (percentage < 20) {
+  } else if (percentage < 6) {
     return palette[1];
-  } else if (percentage < 30) {
+  } else if (percentage < 10) {
     return palette[2];
-  } else if (percentage < 40) {
+  } else if (percentage < 15) {
     return palette[3];
-  } else if (percentage < 50) {
+  } else if (percentage < 25) {
     return palette[4];
-  } else if (percentage < 60) {
+  } else if (percentage < 35) {
     return palette[5];
-  } else if (percentage < 70) {
+  } else if (percentage < 45) {
     return palette[6];
-  } else if (percentage < 80) {
+  } else if (percentage < 60) {
     return palette[7];
-  } else if (percentage < 90) {
+  } else if (percentage < 80) {
     return palette[8];
   } else {
     return palette[9];
@@ -78,16 +78,16 @@ const MapPage = ({ data }) => {
 
   const scale = [
     // TODO: display actual values rather than percentages
-    { text: "0 to 9%", value: palette[0] },
-    { text: "10 to 19%", value: palette[1] },
-    { text: "20 to 29%", value: palette[2] },
-    { text: "30 to 39%", value: palette[3] },
-    { text: "40 to 49%", value: palette[4] },
-    { text: "50 to 59%", value: palette[5] },
-    { text: "60 to 69%", value: palette[6] },
-    { text: "70 to 79%", value: palette[7] },
-    { text: "80 to 89%", value: palette[8] },
-    { text: "90 to 100%", value: palette[9] },
+    { text: "1 to 2%", value: palette[0] },
+    { text: "3 to 5%", value: palette[1] },
+    { text: "5 to 9%", value: palette[2] },
+    { text: "10 to 14%", value: palette[3] },
+    { text: "15 to 24%", value: palette[4] },
+    { text: "25 to 34%", value: palette[5] },
+    { text: "35 to 44%", value: palette[6] },
+    { text: "45 to 59%", value: palette[7] },
+    { text: "60 to 79%", value: palette[8] },
+    { text: "89 to 100%", value: palette[9] },
   ];
 
   return (
