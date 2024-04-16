@@ -20,11 +20,11 @@ const palette = [
 ];
 
 // TODO: contrast people who came only once with recurring users
-// TODO: take density into account
-// TODO: add layers for income/education/...?
+// TODO: take number of people per postcode into account
+// TODO: add layers for income/education/density...?
 
 const getColor = (magicNumber) => {
-  // TODO: find highest value in Python and use it here
+  // TODO: find min/max values and use max here???
   const percentage = (magicNumber / 200) * 100;
 
   if (percentage < 10) {
@@ -68,6 +68,13 @@ const MapPage = ({ data }) => {
   const circles = data.allPostcodesCsv.edges.map((item) => {
     return prepareCircle(item);
   });
+
+  // TODO: add time ranges to items in Python and use slider to change range
+  const [sliderPosition, setSliderPosition] = React.useState(0);
+
+  const handleSliderChange = (event) => {
+    setSliderPosition(parseInt(event.target.value, 10));
+  };
 
   const scale = [
     // TODO: display actual values rather than percentages
@@ -120,6 +127,16 @@ const MapPage = ({ data }) => {
           </div>
         ))}
       </div>
+      <p>
+        <input
+          type="range"
+          min={0}
+          max={palette.length - 1}
+          value={sliderPosition}
+          onChange={handleSliderChange}
+        />
+        <p>{palette[sliderPosition]}</p>
+      </p>
     </div>
   );
 };
