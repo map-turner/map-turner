@@ -1,0 +1,15 @@
+/* div.scaleitem {
+  width: 10vw;
+} */
+
+div.container {
+  /* background: red; */
+  /* flex-flow: row wrap; */
+  color: white;
+  width: 100vw;
+  display: flex;
+}
+
+div.container > div {
+  width: 10vw;
+}
