@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "csv-parser": "^3.0.0",
+    "dotenv": "^16.4.5",
     "gatsby": "^5.13.3",
     "gatsby-plugin-react-leaflet": "^4.0.3",
     "gatsby-source-filesystem": "^5.13.1",
