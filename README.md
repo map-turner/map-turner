@@ -9,7 +9,9 @@ It was a good excuse to try working with Gatsby and Leaflet.
 
 ## 🚀 Quick start
 
-1.  **Get a csv.**
+1.  **Set your environment variables.**
+
+    Rename `.env.sample` to `.env` and fill the form.
 
     Get csv file, call it `postcodes.csv` and put it in `src/data`
     It should have the following columns:
@@ -24,7 +26,19 @@ It was a good excuse to try working with Gatsby and Leaflet.
     npm i
     ```
 
-3.  **Run it!**
+3.  **Get the data from myturn.**
+
+    ```shell
+    npm run get-data
+    ```
+
+4.  **Merge all the files into one.**
+
+    ```shell
+    npm run merge-data
+    ```
+
+5.  **Run it!**
 
     ```shell
     npm run develop
