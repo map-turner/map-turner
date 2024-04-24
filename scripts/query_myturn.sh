@@ -3,23 +3,15 @@
 source .env
 
 # Set the initial date
-start_date=$(date -u -d '2023-01-01' +%d/%m/%Y)
-end_date=$(date -u -d "$start_date + 1 month" +%d/%m/%Y)
-start_date_file_name=$(date -u -d "$start_date" +%d-%m-%Y)
-end_date_file_name=$(date -u -d "$end_date" +%d-%m-%Y)
+start_date=$(date --date "$range_start_date" '+%Y-%m-%d')
+end_date=$(date --date "$start_date +$step_size" '+%Y-%m-%d')
 
+while [[ $(date --date "$end_date +$step_size" '+%s') -le $(date --date "$range_end_date" '+%s') ]]
+do
+    echo "Starting, getting: $start_date"
 
-
-# Set the number of iterations
-iterations=5
-
-
-
-# Loop through the iterations
-for ((i=1; i<=$iterations; i++)); do
-    echo "Iteration $i - starting"
-    echo "url: $api_url"
-	
+    formatted_start_date=$(date --date "$start_date" '+%d/%m/%Y')
+    formatted_end_date=$(date --date "$end_date" '+%d/%m/%Y')
 
     curl --location "https://$api_url/library/rpc/aggregateLoanReport" \
         --header "Host: $api_url" \
@@ -36,27 +28,24 @@ for ((i=1; i<=$iterations; i++)); do
         --header 'Sec-Fetch-Mode: cors' \
         --header 'Sec-Fetch-Site: same-origin' \
         --header "host: $api_url" \
-        --data-urlencode "from_date=$start_date" \
+        --data-urlencode "from_date=$formatted_start_date" \
         --data-urlencode 'from=struct' \
         --data-urlencode 'from_tz=Europe/London' \
         --data-urlencode 'from_time=00:00' \
-        --data-urlencode "to_date=$end_date" \
+        --data-urlencode "to_date=$formatted_end_date" \
         --data-urlencode 'to=struct' \
         --data-urlencode 'to_tz=Europe/London' \
         --data-urlencode 'to_time=23:59' \
         --data-urlencode 'aggregateAttribute=zip' \
         --data-urlencode 'location.id=2806' \
-        --output "data/$start_date_file_name-to-$end_date_file_name.csv.gz"
-
-    # Print the response
-    echo "Iteration $i - done"
+        --output "data/$start_date-to-$end_date.csv.gz"
 
     # Increment the date for the next iteration
-    start_date=$end_date
-    end_date=$(date -u -d "$start_date + 1 month" +%d/%m/%Y)
-    start_date_file_name=$(date -u -d "$start_date" +%d-%m-%Y)
-    end_date_file_name=$(date -u -d "$end_date" +%d-%m-%Y)
+    # TODO: double check if we really need to add a day here
+    start_date=$(date --date "$end_date +1 day" '+%Y-%m-%d')
+    end_date=$(date --date "$start_date +$step_size" '+%Y-%m-%d')
 done
+    echo "Done."
 
 
 
