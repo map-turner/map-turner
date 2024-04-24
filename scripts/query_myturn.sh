@@ -36,7 +36,7 @@ do
         --data-urlencode 'to=struct' \
         --data-urlencode 'to_tz=Europe/London' \
         --data-urlencode 'to_time=23:59' \
-        --data-urlencode 'aggregateAttribute=zip' \
+        --data-urlencode "aggregateAttribute=$aggregate_attribute" \
         --data-urlencode 'location.id=2806' \
         --output "data/$start_date-to-$end_date.csv.gz"
 
