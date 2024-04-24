@@ -13,13 +13,6 @@ It was a good excuse to try working with Gatsby and Leaflet.
 
     Rename `.env.sample` to `.env` and fill the form.
 
-    Get csv file, call it `postcodes.csv` and put it in `src/data`
-    It should have the following columns:
-
-    ```csv
-    Count_sum,postcode,latitude,longitude
-    ```
-
 2.  **Get the dependencies.**
 
     ```shell
