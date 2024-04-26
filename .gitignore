@@ -4,3 +4,4 @@ public
 src/data
 .env
 data/
+postcodes.csv
