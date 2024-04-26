@@ -14,8 +14,8 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "get-data": "bash scripts/query_myturn.sh",
-    "remove-data": "rm -f data/*.csv; rm -f data/*.json",
-    "merge-data": "bash scripts/decompress_and_merge.sh"
+    "remove-data": "rm -f data/*.csv; rm -f data/*.json; rm -f data/*.gz",
+    "merge-data": "bash scripts/merge_myturn_data.sh"
   },
   "dependencies": {
     "csv-parser": "^3.0.0",
