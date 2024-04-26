@@ -13,13 +13,13 @@ do
     formatted_start_date=$(date --date "$start_date" '+%d/%m/%Y')
     formatted_end_date=$(date --date "$end_date" '+%d/%m/%Y')
 
-    curl --location "https://$api_url/library/rpc/aggregateLoanReport" \
+    curl --location "https://$api_url/library/orgLoan/exportAggregateLoanReport" \
         --header "Host: $api_url" \
-        --header 'Accept: application/json, text/javascript, */*; q=0.01' \
+        --header 'Accept: */*' \
+        --header 'Accept-Language: en-GB,en' \
         --header 'Accept-Encoding: gzip, deflate, br' \
         --header "Referer: https://$api_url/" \
-        --header 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' \
-        --header 'X-Requested-With: XMLHttpRequest' \
+        --header 'Content-type: application/x-www-form-urlencoded' \
         --header "Origin: https://$api_url" \
         --header 'DNT: 1' \
         --header 'Connection: keep-alive' \
@@ -38,7 +38,10 @@ do
         --data-urlencode 'to_time=23:59' \
         --data-urlencode "aggregateAttribute=$aggregate_attribute" \
         --data-urlencode 'location.id=2806' \
-        --output "data/$start_date-to-$end_date.json.gz"
+        --data-urlencode 'format=csv' \
+        --data-urlencode 'extension=csv' \
+        --output "data/$start_date-to-$end_date.csv"
+
 
     # Increment the date for the next iteration
     # TODO: double check if we really need to add a day here
