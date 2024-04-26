@@ -38,7 +38,7 @@ do
         --data-urlencode 'to_time=23:59' \
         --data-urlencode "aggregateAttribute=$aggregate_attribute" \
         --data-urlencode 'location.id=2806' \
-        --output "data/$start_date-to-$end_date.csv.gz"
+        --output "data/$start_date-to-$end_date.json.gz"
 
     # Increment the date for the next iteration
     # TODO: double check if we really need to add a day here
