@@ -11,3 +11,4 @@ for file in data/*.csv; do
         awk -v filename="$file" '{if (NR!=1) {print $0 "," filename}}' "$file" >> "data/$MASTER_FILE"
     fi
 done
+
