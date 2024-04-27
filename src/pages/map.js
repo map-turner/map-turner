@@ -17,63 +17,73 @@ const palette = [
   "#f48c06",
   "#faa307",
   "#ffba08",
-];
+].reverse();
 
-// TODO: contrast people who came only once with recurring users
 // TODO: take number of people per postcode into account
 // TODO: add layers for income/education/density...?
 
 const getColor = (magicNumber) => {
-  // TODO: find min/max values and use max here???
-  const percentage = (magicNumber / 200) * 100;
-  // TODO: improve split of numbers
-  if (percentage < 3) {
-    return palette[0];
-  } else if (percentage < 6) {
-    return palette[1];
-  } else if (percentage < 10) {
-    return palette[2];
-  } else if (percentage < 15) {
-    return palette[3];
-  } else if (percentage < 25) {
-    return palette[4];
-  } else if (percentage < 35) {
-    return palette[5];
-  } else if (percentage < 45) {
-    return palette[6];
-  } else if (percentage < 60) {
-    return palette[7];
-  } else if (percentage < 80) {
-    return palette[8];
-  } else {
-    return palette[9];
-  }
+  let matchingRange = scales.find(
+    (rangeObject) => rangeObject.value >= magicNumber
+  );
+  return matchingRange.color;
 };
 
 let uniqueStartDatesSet = new Set();
 let uniqueEndDatesSet = new Set();
+let scales;
 
 const prepareCircle = (roughItem) => {
-  uniqueStartDatesSet.add(roughItem.node.start_date);
-  uniqueEndDatesSet.add(roughItem.node.end_date);
+  uniqueStartDatesSet.add(roughItem.start_date);
+  uniqueEndDatesSet.add(roughItem.end_date);
 
   return {
-    position: [roughItem.node.latitude, roughItem.node.longitude],
-    postcode: roughItem.node.postcode,
-    startDate: roughItem.node.start_date,
-    color: getColor(roughItem.node.Count_sum),
-    sum: roughItem.node.Count_sum,
+    position: [roughItem.latitude, roughItem.longitude],
+    postcode: roughItem.postcode,
+    startDate: roughItem.start_date,
+    color: getColor(Number(roughItem.Count_sum)),
+    sum: Number(roughItem.Count_sum),
     result:
-      "Postcode: " +
-      roughItem.node.postcode +
-      " - Loans: " +
-      roughItem.node.Count_sum,
+      "Postcode: " + roughItem.postcode + " - Loans: " + roughItem.Count_sum,
   };
 };
 
+const setScale = (maxAmount) => {
+  let currentTopValue = 1;
+  let scales = [{ text: "1 loan", value: currentTopValue, color: palette[0] }];
+  let base = 0;
+  const justToString = " to ";
+
+  const step = Math.floor(maxAmount / (palette.length - 1));
+
+  for (let index = 1; index < palette.length; index++) {
+    base = Number(currentTopValue) + 1;
+    currentTopValue = base + step;
+    if (currentTopValue > maxAmount) {
+      currentTopValue = maxAmount;
+    }
+    scales.push({
+      text: base + justToString + currentTopValue,
+      value: currentTopValue,
+      color: palette[index],
+    });
+  }
+
+  return scales;
+};
+
 const MapPage = ({ data }) => {
+  let biggestSum = data.allPostcodesCsv.edges.reduce(
+    (accumulator, currentItem) =>
+      Number(currentItem.node.Count_sum) > accumulator
+        ? Number(currentItem.node.Count_sum)
+        : accumulator,
+    0
+  );
+
+  scales = setScale(biggestSum);
   const circles = data.allPostcodesCsv.edges.map((item) => {
-    return prepareCircle(item);
+    return prepareCircle(item.node);
   });
 
   const uniqueStartDates = Array.from(uniqueStartDatesSet);
@@ -84,20 +94,6 @@ const MapPage = ({ data }) => {
   const handleSliderChange = (event) => {
     setSliderPosition(parseInt(event.target.value, 10));
   };
-
-  const scale = [
-    // TODO: display actual values rather than percentages
-    { text: "1 to 2%", value: palette[0] },
-    { text: "3 to 5%", value: palette[1] },
-    { text: "5 to 9%", value: palette[2] },
-    { text: "10 to 14%", value: palette[3] },
-    { text: "15 to 24%", value: palette[4] },
-    { text: "25 to 34%", value: palette[5] },
-    { text: "35 to 44%", value: palette[6] },
-    { text: "45 to 59%", value: palette[7] },
-    { text: "60 to 79%", value: palette[8] },
-    { text: "89 to 100%", value: palette[9] },
-  ];
 
   return (
     <div>
@@ -127,6 +123,7 @@ const MapPage = ({ data }) => {
               center={circle.position}
               radius="50"
               opacity="0.8"
+              fillOpacity="0.5"
               color={circle.color}
             >
               <Popup>{circle.result}</Popup>
@@ -136,8 +133,8 @@ const MapPage = ({ data }) => {
 
       <div className="info">
         <div className="scale">
-          {scale.map((val) => (
-            <div style={{ backgroundColor: val.value }}>
+          {scales.map((val) => (
+            <div style={{ backgroundColor: val.color }} key={val.value}>
               <p>{val.text}</p>
             </div>
           ))}
