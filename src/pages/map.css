@@ -1,9 +1,38 @@
-div.container {
-  color: white;
+div.info {
+  color: black;
   width: 100vw;
   display: flex;
 }
 
-div.container > div {
+div.slider {
+  width: 30vw;
+  flex: content;
+  align-items: center;
+  margin: auto;
+  padding: 5px;
+}
+
+div.scale {
+  color: white;
+  width: 70vw;
+  display: flex;
+}
+
+.scale p {
+  padding-top: 5px;
+}
+
+input {
+  width: 90%;
+  align-self: center;
+}
+
+p {
+  width: 100%;
+  margin: auto;
+  text-align: center;
+}
+
+div.scale > div {
   width: 10vw;
 }
