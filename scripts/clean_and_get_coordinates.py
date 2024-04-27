@@ -31,7 +31,7 @@ def drop_extra_columns(df: pd.DataFrame):
 def remove_postcode_no_space(df: pd.DataFrame):
     # df = df.drop(columns=['id'])
     df = df.drop(columns=['postcode_no_space'])
-    df = df.sort_values(['postcode'], na_position='first')
+    df = df.sort_values(['start_date'], na_position='first')
     return df
 
 df_ltl = pd.read_csv(r'data/collection.csv', engine='pyarrow')
