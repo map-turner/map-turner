@@ -50,10 +50,17 @@ const getColor = (magicNumber) => {
   }
 };
 
+let uniqueStartDatesSet = new Set();
+let uniqueEndDatesSet = new Set();
+
 const prepareCircle = (roughItem) => {
+  uniqueStartDatesSet.add(roughItem.node.start_date);
+  uniqueEndDatesSet.add(roughItem.node.end_date);
+
   return {
     position: [roughItem.node.latitude, roughItem.node.longitude],
     postcode: roughItem.node.postcode,
+    startDate: roughItem.node.start_date,
     color: getColor(roughItem.node.Count_sum),
     sum: roughItem.node.Count_sum,
     result:
@@ -69,7 +76,9 @@ const MapPage = ({ data }) => {
     return prepareCircle(item);
   });
 
-  // TODO: add time ranges to items in Python and use slider to change range
+  const uniqueStartDates = Array.from(uniqueStartDatesSet);
+  const uniqueEndDates = Array.from(uniqueEndDatesSet);
+
   const [sliderPosition, setSliderPosition] = React.useState(0);
 
   const handleSliderChange = (event) => {
@@ -94,7 +103,7 @@ const MapPage = ({ data }) => {
     <div>
       <MapContainer
         // style={{ height: "600px" }}
-        style={{ height: "95vh" }}
+        style={{ height: "85vh" }}
         center={toolLibrary}
         zoom={14}
         scrollWheelZoom={false}
@@ -108,35 +117,46 @@ const MapPage = ({ data }) => {
             The Tool Library. <br /> That's where the tools are.
           </Popup>
         </Marker>
-        {circles.map((circle) => (
-          <Circle
-            key={circle.postcode}
-            center={circle.position}
-            radius="50"
-            opacity="0.8"
-            color={circle.color}
-          >
-            <Popup>{circle.result}</Popup>
-          </Circle>
-        ))}
+        {circles
+          .filter(
+            (circle) => circle.startDate === uniqueStartDates[sliderPosition]
+          )
+          .map((circle) => (
+            <Circle
+              key={circle.postcode + circle.startDate}
+              center={circle.position}
+              radius="50"
+              opacity="0.8"
+              color={circle.color}
+            >
+              <Popup>{circle.result}</Popup>
+            </Circle>
+          ))}
       </MapContainer>
-      <div className="container">
-        {scale.map((val) => (
-          <div style={{ backgroundColor: val.value }}>
-            <p>{val.text}</p>
-          </div>
-        ))}
+
+      <div className="info">
+        <div className="scale">
+          {scale.map((val) => (
+            <div style={{ backgroundColor: val.value }}>
+              <p>{val.text}</p>
+            </div>
+          ))}
+        </div>
+        <div className="slider">
+          <input
+            type="range"
+            min={0}
+            max={uniqueStartDates.length - 1}
+            value={sliderPosition}
+            onChange={handleSliderChange}
+          />
+          <p>
+            {uniqueStartDates[sliderPosition] +
+              " to " +
+              uniqueEndDates[sliderPosition]}
+          </p>
+        </div>
       </div>
-      <p>
-        <input
-          type="range"
-          min={0}
-          max={palette.length - 1}
-          value={sliderPosition}
-          onChange={handleSliderChange}
-        />
-        <p>{palette[sliderPosition]}</p>
-      </p>
     </div>
   );
 };
@@ -150,6 +170,8 @@ export const query = graphql`
           latitude
           longitude
           postcode
+          start_date
+          end_date
         }
       }
     }
