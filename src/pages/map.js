@@ -54,7 +54,7 @@ const setScale = (maxAmount) => {
   let base = 0;
   const justToString = " to ";
 
-  const step = Math.floor(maxAmount / (palette.length - 1));
+  const step = Math.floor(maxAmount / palette.length);
 
   for (let index = 1; index < palette.length; index++) {
     base = Number(currentTopValue) + 1;
