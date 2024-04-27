@@ -49,6 +49,3 @@ do
     end_date=$(date --date "$start_date +$step_size" '+%Y-%m-%d')
 done
     echo "Done."
-
-
-
