@@ -16,9 +16,10 @@ do
     curl --location "https://$api_url/library/orgLoan/exportAggregateLoanReport" \
         --header "Host: $api_url" \
         --header 'Accept: */*' \
-        --header 'Accept-Language: en-GB,en' \
+        --header 'Accept-Language: en-GB,en;q=0.7,fr;q=0.3' \
         --header 'Accept-Encoding: gzip, deflate, br' \
         --header "Referer: https://$api_url/" \
+        --header 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0' \
         --header 'Content-type: application/x-www-form-urlencoded' \
         --header "Origin: https://$api_url" \
         --header 'DNT: 1' \
