@@ -42,7 +42,7 @@ It was a good excuse to try working with Gatsby and Leaflet.
     Modify `scripts/get_uk_postcodes.sh` accordingly.
 
     ```shell
-    npm run get-postcodes
+    npm run get-uk-postcodes
     ```
 
 1.  **Add coordinates to the collection file.**
