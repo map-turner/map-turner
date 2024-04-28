@@ -59,7 +59,7 @@ const setScale = (maxAmount) => {
   for (let index = 1; index < palette.length; index++) {
     base = Number(currentTopValue) + 1;
     currentTopValue = base + step;
-    if (currentTopValue > maxAmount) {
+    if (currentTopValue > maxAmount || index === palette.length - 1) {
       currentTopValue = maxAmount;
     }
     scales.push({
