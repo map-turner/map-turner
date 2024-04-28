@@ -4,7 +4,7 @@
 
 ## What is this?
 
-This was made to display locations on a map.
+This tool was made to display the evolution of locations on a map.
 It was a good excuse to try working with Gatsby and Leaflet.
 
 ## 🚀 Quick start
@@ -34,6 +34,13 @@ It was a good excuse to try working with Gatsby and Leaflet.
 
 1.  **Download file with postcodes and coordinates.**
 
+    If you're not in the UK, you'll have to do a bit of work here:
+    You need to get the longitude and latitude for your zip codes/ postcodes.
+
+    If in the UK, you might want to get a different file here: https://www.getthedata.com/open-postcode-geo
+    The default file is massive and will take forever but regional extracts are available.
+    Modify `scripts/get_uk_postcodes.sh` accordingly.
+
     ```shell
     npm run get-postcodes
     ```
@@ -49,3 +56,8 @@ It was a good excuse to try working with Gatsby and Leaflet.
     ```shell
     npm run develop
     ```
+
+1.  **Look at your data!**
+
+    Open your browser, navigate to `http://localhost:8000/maps`.
+    Play with the slider to see your locations change over time.
