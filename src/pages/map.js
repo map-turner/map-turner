@@ -52,20 +52,38 @@ const setScale = (maxAmount) => {
   let scales = [{ text: "1 loan", value: currentTopValue, color: palette[0] }];
   let base = 0;
   const justToString = " to ";
+  const loans = " loans";
 
-  const step = Math.floor(maxAmount / palette.length);
+  let step = Math.floor(maxAmount / palette.length);
+  let maxColorIndex = palette.length;
 
-  for (let index = 1; index < palette.length; index++) {
+  if (palette.length > maxAmount) {
+    maxColorIndex = maxAmount;
+    step = 1;
+  }
+  //  0 1 - 2 3 - 4 5
+  for (let index = 1; index < maxColorIndex; index++) {
     base = Number(currentTopValue) + 1;
     currentTopValue = base + step;
-    if (currentTopValue > maxAmount || index === palette.length - 1) {
+    if (currentTopValue > maxAmount || index === maxColorIndex - 1) {
       currentTopValue = maxAmount;
     }
+    // if (base > currentTopValue) {
+    //   base = currentTopValue;
+    // }
     scales.push({
-      text: base + justToString + currentTopValue,
+      text: base + justToString + currentTopValue + loans,
       value: currentTopValue,
       color: palette[index],
     });
+    // scales.push({
+    //   text:
+    //     currentTopValue - base <= 1
+    //       ? base + loans
+    //       : base + justToString + currentTopValue + loans,
+    //   value: currentTopValue,
+    //   color: palette[index],
+    // });
   }
 
   return scales;
