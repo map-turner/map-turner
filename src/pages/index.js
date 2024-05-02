@@ -1,7 +1,7 @@
 import * as React from "react";
 import { MapContainer, TileLayer, Marker, Popup, Circle } from "react-leaflet";
 import { graphql } from "gatsby";
-import "./map.css";
+import "./index.css";
 
 const toolLibrary = [53.3939431, -2.9486509];
 
