@@ -3,7 +3,10 @@ import { MapContainer, TileLayer, Marker, Popup, Circle } from "react-leaflet";
 import { graphql } from "gatsby";
 import "./index.css";
 
-const toolLibrary = [53.3939431, -2.9486509];
+const centreCoordinates = [
+  Number(process.env.GATSBY_LIBRARY_LATITUDE),
+  Number(process.env.GATSBY_LIBRARY_LONGITUDE),
+];
 
 const palette = [
   "#03071e",
