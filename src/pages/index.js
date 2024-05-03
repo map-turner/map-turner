@@ -8,6 +8,8 @@ const centreCoordinates = [
   Number(process.env.GATSBY_LIBRARY_LONGITUDE),
 ];
 
+const initialZoomLevel = Number(process.env.GATSBY_INITIAL_ZOOM);
+
 const palette = [
   "#03071e",
   "#370617",
@@ -64,7 +66,7 @@ const setScale = (maxAmount) => {
     maxColorIndex = maxAmount;
     step = 1;
   }
-  //  0 1 - 2 3 - 4 5
+
   for (let index = 1; index < maxColorIndex; index++) {
     base = Number(currentTopValue) + 1;
     currentTopValue = base + step;
@@ -118,17 +120,16 @@ const MapPage = ({ data }) => {
   return (
     <div>
       <MapContainer
-        // style={{ height: "600px" }}
         style={{ height: "85vh" }}
-        center={toolLibrary}
-        zoom={14}
+        center={centreCoordinates}
+        zoom={initialZoomLevel}
         scrollWheelZoom={false}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={toolLibrary}>
+        <Marker position={centreCoordinates}>
           <Popup>
             The Tool Library. <br /> That's where the tools are.
           </Popup>
@@ -141,7 +142,7 @@ const MapPage = ({ data }) => {
             <Circle
               key={circle.postcode + circle.startDate}
               center={circle.position}
-              radius="50"
+              radius="75"
               opacity="0.8"
               fillOpacity="0.5"
               color={circle.color}
@@ -195,3 +196,5 @@ export const query = graphql`
   }
 `;
 export default MapPage;
+
+export const Head = () => <title>Superb Map Tool</title>;
