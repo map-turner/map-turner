@@ -1,7 +1,7 @@
 node_modules/
 .cache/
 public
-src/data
+# src/data
 .env.*
-data/
-postcodes.csv
+# data/
+# postcodes.csv
