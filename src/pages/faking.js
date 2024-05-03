@@ -63,17 +63,31 @@ for (let index = 0; index < 5000; index++) {
     " " +
     fakerEN.animal.dog();
 
-  fakeTable.push({
-    startDate: dateToString(rangeStartDate),
-    endDate: dateToString(rangeEndDate),
-    countSum: fakerEN.number.int({ min: 1, max: 48 }),
-    postcode: randomText,
-    latitude: coordinates[0],
-    longitude: coordinates[1],
-  });
+  if (randomText.length % 2 === 0) {
+    fakeTable.push({
+      startDate: dateToString(rangeStartDate),
+      endDate: dateToString(rangeEndDate),
+      countSum: fakerEN.number.int({ min: 1, max: 48 }),
+      postcode: randomText,
+      latitude: coordinates[0],
+      longitude: coordinates[1],
+    });
 
-  rangeStartDate = addOneDay(rangeEndDate);
-  rangeEndDate = addDays(rangeStartDate, incrementInDays);
+    rangeStartDate = addOneDay(rangeEndDate);
+    rangeEndDate = addDays(rangeStartDate, incrementInDays);
+  } else {
+    rangeStartDate = addOneDay(rangeEndDate);
+    rangeEndDate = addDays(rangeStartDate, incrementInDays);
+
+    fakeTable.push({
+      startDate: dateToString(rangeStartDate),
+      endDate: dateToString(rangeEndDate),
+      countSum: fakerEN.number.int({ min: 1, max: 48 }),
+      postcode: randomText,
+      latitude: coordinates[0],
+      longitude: coordinates[1],
+    });
+  }
 
   if (new Date(rangeStartDate).valueOf() > endDateInMilliseconds) {
     rangeStartDate = startDate;
