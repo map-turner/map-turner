@@ -5,9 +5,31 @@
 ## What is this?
 
 This tool was made to display the evolution of locations on a map.
-It was a good excuse to try working with Gatsby and Leaflet.
 
-## 🚀 Quick start
+## 🚀 Quick start with demo data
+
+1.  **Get the dependencies.**
+
+    ```shell
+    npm install
+    ```
+
+1.  **Set your environment variables.**
+
+    Rename `.env.development.sample` to `.env.development` and edit the file as needed.
+
+1.  **Run it!**
+
+    ```shell
+    npm run develop
+    ```
+
+1.  **Look at the demo data!**
+
+    Open your browser, navigate to `http://localhost:8000/`.
+    Play with the slider to see how the locations change over time.
+
+## Display your actual data:
 
 1.  **Requirements.**
 
@@ -18,7 +40,7 @@ It was a good excuse to try working with Gatsby and Leaflet.
 
 1.  **Set your environment variables.**
 
-    Rename `.env.sample` to `.env` and fill the form.
+    Rename `.env.development.sample` to `.env.development` and fill the form.
 
 1.  **Get the data from myturn.**
 
@@ -59,5 +81,5 @@ It was a good excuse to try working with Gatsby and Leaflet.
 
 1.  **Look at your data!**
 
-    Open your browser, navigate to `http://localhost:8000/maps`.
+    Open your browser, navigate to `http://localhost:8000/`.
     Play with the slider to see your locations change over time.

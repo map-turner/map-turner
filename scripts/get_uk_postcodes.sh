@@ -7,5 +7,6 @@ curl https://www.getthedata.com/downloads/open_postcode_geo.csv.tar.gz --output 
 tar -zxvf open_postcode_geo.csv.tar.gz open_postcode_geo.csv
 cat open_postcode_geo.csv >> postcodes.csv
 
-# If you're lucky, regional extracts might be available see https://www.getthedata.com/open-postcode-geo eg for Merseyside:
+# If you're lucky, regional extracts might be available (note that the file might not be zipped).
+# See https://www.getthedata.com/open-postcode-geo eg for Merseyside:
 # curl https://www.getthedata.com/downloads/open_postcode_geo_merseyside.csv >> postcodes.csv

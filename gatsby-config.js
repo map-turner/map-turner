@@ -1,11 +1,17 @@
 /**
  * @type {import('gatsby').GatsbyConfig}
  */
+
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
+
 module.exports = {
   siteMetadata: {
     title: `LTL Maps`,
     siteUrl: `https://www.yourdomain.tld`,
   },
+  pathPrefix: "/map-turner",
   plugins: [
     {
       resolve: "gatsby-plugin-react-leaflet",
