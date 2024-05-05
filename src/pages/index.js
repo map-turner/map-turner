@@ -53,42 +53,58 @@ const prepareCircle = (roughItem) => {
 };
 
 const setScale = (maxAmount) => {
-  let currentTopValue = 1;
-  let scales = [{ text: "1 loan", value: currentTopValue, color: palette[0] }];
-  let base = 0;
+  let startOfRange = 0;
+  let topOfRange = startOfRange + 1;
+
+  let scales = [
+    {
+      text: topOfRange + " loan",
+      value: topOfRange,
+      color: palette[startOfRange],
+    },
+  ];
+
   const justToString = " to ";
-  const loans = " loans";
+  const loansString = " loans";
 
-  let step = Math.floor(maxAmount / palette.length);
-  let maxColorIndex = palette.length;
-
-  if (palette.length > maxAmount) {
-    maxColorIndex = maxAmount;
-    step = 1;
-  }
-
-  for (let index = 1; index < maxColorIndex; index++) {
-    base = Number(currentTopValue) + 1;
-    currentTopValue = base + step;
-    if (currentTopValue > maxAmount || index === maxColorIndex - 1) {
-      currentTopValue = maxAmount;
+  if (palette.length >= maxAmount) {
+    for (let index = 1; index < maxAmount; index++) {
+      topOfRange = index + 1;
+      scales.push({
+        text: topOfRange + loansString,
+        value: topOfRange,
+        color: palette[index],
+      });
     }
-    // if (base > currentTopValue) {
-    //   base = currentTopValue;
-    // }
-    scales.push({
-      text: base + justToString + currentTopValue + loans,
-      value: currentTopValue,
-      color: palette[index],
-    });
-    // scales.push({
-    //   text:
-    //     currentTopValue - base <= 1
-    //       ? base + loans
-    //       : base + justToString + currentTopValue + loans,
-    //   value: currentTopValue,
-    //   color: palette[index],
-    // });
+  } else {
+    let availableColors = palette.length - scales.length;
+    let step = Math.floor(maxAmount / availableColors);
+
+    for (let index = scales.length; index <= availableColors; index++) {
+      startOfRange = topOfRange + 1;
+      topOfRange = index * step + 1;
+
+      if (topOfRange > maxAmount) {
+        topOfRange = maxAmount;
+      }
+
+      if (scales.length === palette.length - 1) {
+        topOfRange = maxAmount;
+      }
+
+      if (startOfRange > topOfRange) {
+        startOfRange = topOfRange;
+      }
+
+      scales.push({
+        text:
+          topOfRange - startOfRange >= 1
+            ? startOfRange + justToString + topOfRange + loansString
+            : startOfRange + loansString,
+        value: topOfRange,
+        color: palette[index],
+      });
+    }
   }
 
   return scales;
