@@ -119,6 +119,9 @@ const MapPage = ({ data }) => {
     0
   );
 
+  console.log("dotenv value:");
+  console.log(initialZoomLevel);
+
   scales = setScale(biggestSum);
   const circles = data.allPostcodesCsv.edges.map((item) => {
     return prepareCircle(item.node);
