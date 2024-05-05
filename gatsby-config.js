@@ -11,6 +11,7 @@ module.exports = {
     title: `LTL Maps`,
     siteUrl: `https://www.yourdomain.tld`,
   },
+  pathPrefix: "/map-turner",
   plugins: [
     {
       resolve: "gatsby-plugin-react-leaflet",
