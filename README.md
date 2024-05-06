@@ -31,6 +31,12 @@ This tool was made to display the evolution of locations on a map.
 
 ## Display your actual data:
 
+1.  **Warning.**
+
+    You're responsible for the usage you make of this tool.
+    Be very careful with the data you will be working with.
+    Respect all the applicable laws.
+
 1.  **Requirements.**
 
     ```shell

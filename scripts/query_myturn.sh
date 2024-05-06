@@ -19,7 +19,7 @@ do
         --header 'Accept-Language: en-GB,en;q=0.7,fr;q=0.3' \
         --header 'Accept-Encoding: gzip, deflate, br' \
         --header "Referer: https://$API_URL/" \
-        --header 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0' \
+        --header 'User-Agent: curl for Map Turner' \
         --header 'Content-type: application/x-www-form-urlencoded' \
         --header "Origin: https://$API_URL" \
         --header 'DNT: 1' \
@@ -48,5 +48,7 @@ do
     # TODO: double check if we really need to add a day here
     start_date=$(date --date "$end_date +1 day" '+%Y-%m-%d')
     end_date=$(date --date "$start_date +$GATSBY_STEP_SIZE_IN_DAYS days" '+%Y-%m-%d')
+
+    sleep 3
 done
     echo "Done."
