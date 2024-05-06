@@ -158,7 +158,7 @@ const MapPage = ({ data }) => {
             <Circle
               key={circle.postcode + circle.startDate}
               center={circle.position}
-              radius="75"
+              radius="100"
               opacity="0.8"
               fillOpacity="0.5"
               color={circle.color}
