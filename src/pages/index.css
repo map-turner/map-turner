@@ -1,29 +1,32 @@
 div.info {
   color: black;
-  width: 100vw;
+  width: 100%;
   display: flex;
 }
 
 div.slider {
-  width: 30vw;
+  width: 20%;
   flex: content;
   align-items: center;
-  margin: auto;
-  padding: 5px;
+  height: 100%;
 }
 
 div.scale {
   color: white;
-  width: 70vw;
+  width: 80%;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 .scale p {
-  padding-top: 5px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 input {
-  width: 90%;
+  width: 100%;
   align-self: center;
 }
 
@@ -34,5 +37,5 @@ p {
 }
 
 div.scale > div {
-  width: 10vw;
+  width: 10%;
 }
